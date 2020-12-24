@@ -10,13 +10,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Graph Coloring Visualization',
       home: Scaffold(
         backgroundColor: Colors.black,
         body: Center(
           child: Container(
             alignment: Alignment.center,
-            child: VeryexCount(),
+            child: VertexCount(),
           ),
         ),
       ),
@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class VeryexCount extends StatefulWidget {
+class VertexCount extends StatefulWidget {
   @override
-  _VeryexCountState createState() => _VeryexCountState();
+  _VertexCountState createState() => _VertexCountState();
 }
 
-class _VeryexCountState extends State<VeryexCount> {
+class _VertexCountState extends State<VertexCount> {
   String text = '';
   TextEditingController _textFieldController = TextEditingController();
   @override

@@ -13,7 +13,6 @@ class InputTaker extends StatefulWidget {
 class _InputTakerState extends State<InputTaker> {
   List<int> displayExOh = [];
   var matrix;
-  var adjMatrix;
   var exampleMatrixOne = [
     [0, 1, 1, 0, 0],
     [1, 0, 1, 1, 0],
@@ -42,16 +41,7 @@ class _InputTakerState extends State<InputTaker> {
         widget.vertexCount,
         (i) => List.generate(widget.vertexCount,
             (j) => displayExOh[j + i * widget.vertexCount]));
-    adjMatrix = matrix;
     print(matrix);
-    adjMatrix = [
-      [0, 1, 0, 0, 1, 1],
-      [1, 0, 0, 1, 1, 0],
-      [0, 0, 0, 1, 1, 0],
-      [0, 1, 1, 0, 0, 0],
-      [1, 1, 1, 0, 0, 1],
-      [1, 0, 0, 0, 1, 0]
-    ];
   }
 
   @override

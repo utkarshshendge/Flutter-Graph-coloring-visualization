@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:daa/model/item_model.dart';
+import 'widget/graph_node.dart';
+import 'widget/curverd_painter.dart';
 
 class ItemsScene extends StatefulWidget {
   final int vertexCount;
@@ -12,23 +15,8 @@ class ItemsScene extends StatefulWidget {
   _ItemsSceneState createState() => _ItemsSceneState();
 }
 
-var adjMatrix;
-Stopwatch executionTime = new Stopwatch();
-
 int colorCount = 0;
-List defaultColors = [
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white,
-  Colors.white
-];
+List defaultColors = List.filled(11, Colors.white);
 
 class _ItemsSceneState extends State<ItemsScene> {
   List<ItemModel> items = [];
@@ -49,7 +37,7 @@ class _ItemsSceneState extends State<ItemsScene> {
     print("\n");
   }
 
-//////================================================================================================================
+//Recursive algorithm  ==================================================================================
   bool isSafe(graph, List color, int vertexCount) {
     for (int i = 0; i < vertexCount; i++)
       for (int j = i + 1; j < vertexCount; j++)
@@ -86,7 +74,6 @@ class _ItemsSceneState extends State<ItemsScene> {
       });
       if (await graphColoring(graph, m, i + 1, color, items, vertexCount))
         return true;
-      //  color[i] = Colors.white;
     }
 
     return false;
@@ -105,7 +92,7 @@ class _ItemsSceneState extends State<ItemsScene> {
       vertexCount,
     );
   }
-//////================================================================================================================
+//Backtracking algorithm ==================================================================================
 
   Future<bool> backtrackIsSafe(
       int v, graph, List color, int c, int vertexCount) async {
@@ -145,11 +132,9 @@ class _ItemsSceneState extends State<ItemsScene> {
     backtrackGraphColoringUtil(graph, m, color, vertexCount, 0, items);
   }
 
-//===============================================================================================================================
+//Greedy algorithm  ==================================================================================
 
   greedyColoring(List<List> adj, int N, List<ItemModel> items) async {
-    Stopwatch executionTime = new Stopwatch();
-    executionTime.start();
     List<Color> result = new List<Color>(N);
     List<int> resultIndex = new List<int>(N);
 
@@ -172,7 +157,7 @@ class _ItemsSceneState extends State<ItemsScene> {
 
     for (int u = 1; u < N; u++) {
       for (int i = 0; i < N; i++) {
-        if (adjMatrix[u][i] == 1) {
+        if (widget.matrix[u][i] == 1) {
           if (resultIndex[i] != -1) {
             available[resultIndex[i]] = false;
           }
@@ -198,9 +183,7 @@ class _ItemsSceneState extends State<ItemsScene> {
         available[cr] = true;
       }
     }
-    executionTime.stop();
-    print(
-        "++++++++++++++++++++++++++++++++++++++++++  ${executionTime.elapsedMilliseconds}");
+
     for (int u = 0; u < N; u++) print("Vertex $u  color ${result[u]}");
     print("\n");
   }
@@ -210,7 +193,7 @@ class _ItemsSceneState extends State<ItemsScene> {
 
     for (int i = 0; i < N; i++) {
       for (int j = 0; j < N; j++) {
-        if (adjMatrix[i][j] == 1) {
+        if (widget.matrix[i][j] == 1) {
           adj[i].add(j);
         }
       }
@@ -219,7 +202,7 @@ class _ItemsSceneState extends State<ItemsScene> {
     greedyColoring(adj, N, items);
   }
 
-//===============================================================================================================================
+//---------------------------------------------------------------------------------------------------
   Function onDragStart(int index) => (x, y) {
         setState(() {
           items[index] = items[index].copyWithNewOffset(Offset(x, y));
@@ -289,10 +272,8 @@ class _ItemsSceneState extends State<ItemsScene> {
               onPressed: () {
                 setState(() {
                   colorCount = 0;
-                  adjMatrix = widget.matrix;
                 });
                 greedyMain(widget.vertexCount, items);
-                // baktrackingStart(widget.matrix, items, widget.vertexCount);
               },
               child: Text("Greedy", style: TextStyle(color: Colors.white)),
               color: Color(0xffFC4A71),
@@ -304,115 +285,15 @@ class _ItemsSceneState extends State<ItemsScene> {
   }
 
   List<Widget> _buildItems() {
-    final res = <Widget>[];
+    final resultList = <Widget>[];
     items.asMap().forEach((ind, item) {
-      res.add(_Item(
+      resultList.add(Item(
           onDragStart: onDragStart(ind),
           offset: item.offset,
           text: item.text,
           color: item.color));
     });
 
-    return res;
-  }
-}
-
-class _Item extends StatelessWidget {
-  Color color;
-
-  _Item(
-      {Key key,
-      this.offset,
-      this.onDragStart,
-      this.text,
-      this.color,
-      this.timesChanged});
-
-  final double size = 50;
-  final Offset offset;
-  final Function onDragStart;
-  final String text;
-  final int timesChanged;
-
-  _handleDrag(details) {
-    print(details);
-    var x = details.globalPosition.dx;
-    var y = details.globalPosition.dy;
-    onDragStart(x, y);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      left: offset.dx - size / 2,
-      top: offset.dy - size / 2,
-      child: GestureDetector(
-        onPanStart: _handleDrag,
-        onPanUpdate: _handleDrag,
-        child: Container(
-          width: size,
-          height: size,
-          child: Center(
-              child: Text(
-            text,
-            style: TextStyle(fontSize: 20, color: Colors.black),
-          )),
-          decoration: BoxDecoration(
-            color: color,
-            border: Border.all(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CurvedPainter extends CustomPainter {
-  var matrix;
-
-  final int vertexCount;
-  CurvedPainter({
-    this.offsets,
-    this.matrix,
-    this.vertexCount,
-  });
-
-  final List<Offset> offsets;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (offsets.length > 1) {
-      for (var i = 0; i < vertexCount; i++) {
-        for (var j = 0; j < vertexCount; j++) {
-          if (matrix[i][j] == 1) {
-            canvas.drawLine(
-              offsets[i],
-              offsets[j],
-              Paint()
-                ..color = Colors.white
-                ..strokeWidth = 2,
-            );
-          }
-        }
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(CurvedPainter oldDelegate) => true;
-}
-
-class ItemModel {
-  Color color;
-
-  ItemModel({this.offset, this.text, this.color});
-
-  final Offset offset;
-  final String text;
-
-  ItemModel copyWithNewOffset(Offset offset) {
-    return ItemModel(offset: offset, text: text, color: color);
+    return resultList;
   }
 }
