@@ -1,3 +1,4 @@
+import 'package:daa/theme/customtheme.dart';
 import 'package:daa/views/info_page/info_page_web.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Graph Coloring Visualization',
+      theme: CustomTheme().buildTheme(),
       home: Scaffold(
         backgroundColor: Colors.black,
         body: Center(

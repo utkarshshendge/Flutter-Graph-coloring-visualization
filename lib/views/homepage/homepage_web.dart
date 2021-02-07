@@ -226,7 +226,7 @@ class _HomePageWebState extends State<HomePageWeb> {
       children: <Widget>[
         Container(
           color: Color(0xff2A3465),
-          height: 600,
+          height: 500,
           child: Stack(
             children: <Widget>[
               CustomPaint(
