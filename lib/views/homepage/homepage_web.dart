@@ -22,12 +22,12 @@ class _HomePageWebState extends State<HomePageWeb> {
 
   List<ItemModel> items = [];
   List colorList = [
-    Colors.red,
-    Colors.green,
-    Colors.yellow,
-    Colors.brown,
-    Colors.blue,
-    Colors.purpleAccent,
+    Color(0xffF6EE3F),
+    Color(0xffFF5436),
+    Color(0xff008FFF),
+    Color(0xff50E3C2),
+    Color(0xffB1F96E),
+    Color(0xffBB14D9),
     Colors.orange
   ];
 
@@ -222,66 +222,90 @@ class _HomePageWebState extends State<HomePageWeb> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          color: Color(0xff2A3465),
-          height: 500,
-          child: Stack(
-            children: <Widget>[
-              CustomPaint(
-                size: Size(double.infinity, double.infinity),
-                painter: CurvedPainter(
-                    offsets: items.map((item) => item.offset).toList(),
-                    matrix: widget.matrix,
-                    vertexCount: widget.vertexCount),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Column(
+        children: <Widget>[
+          Container(
+            color: Color(0xff1A2744),
+            height: 500,
+            child: Stack(
+              children: <Widget>[
+                CustomPaint(
+                  size: Size(double.infinity, double.infinity),
+                  painter: CurvedPainter(
+                      offsets: items.map((item) => item.offset).toList(),
+                      matrix: widget.matrix,
+                      vertexCount: widget.vertexCount),
+                ),
+                ..._buildItems(),
+              ],
+            ),
+          ),
+          Text("$colorCount",
+              style: TextStyle(color: Colors.white, fontSize: 40)),
+          Row(
+            children: [
+              Expanded(
+                child: RichText(
+                    text: TextSpan(
+                        text: "Graph coloring algorithm\nVisualization.",
+                        style: TextStyle(
+                            fontFamily: "CM",
+                            fontSize: 60,
+                            color: Colors.white),
+                        children: <TextSpan>[
+                      TextSpan(
+                        text: "\nCoded in Dart.",
+                        style: TextStyle(
+                            fontFamily: "CM",
+                            fontSize: 40,
+                            color: Colors.white54),
+                      ),
+                    ])),
               ),
-              ..._buildItems(),
             ],
           ),
-        ),
-        Text("$colorCount",
-            style: TextStyle(color: Colors.white, fontSize: 40)),
-        Spacer(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            FlatButton(
-              onPressed: () {
-                setState(() {
-                  colorCount = 0;
-                });
-                rescursiveUtility(widget.matrix, items, widget.vertexCount);
-              },
-              child: Text("Recursive", style: TextStyle(color: Colors.white)),
-              color: Color(0xff684AFF),
-            ),
-            FlatButton(
-              onPressed: () {
-                setState(() {
-                  colorCount = 0;
-                });
-                baktrackingStart(widget.matrix, items, widget.vertexCount);
-              },
-              child: Text(
-                "Backtracking",
-                style: TextStyle(color: Colors.white),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              FlatButton(
+                onPressed: () {
+                  setState(() {
+                    colorCount = 0;
+                  });
+                  rescursiveUtility(widget.matrix, items, widget.vertexCount);
+                },
+                child: Text("Recursive", style: TextStyle(color: Colors.white)),
+                color: Color(0xff684AFF),
               ),
-              color: Color(0xff45D3C2),
-            ),
-            FlatButton(
-              onPressed: () {
-                setState(() {
-                  colorCount = 0;
-                });
-                greedyMain(widget.vertexCount, items);
-              },
-              child: Text("Greedy", style: TextStyle(color: Colors.white)),
-              color: Color(0xffFC4A71),
-            ),
-          ],
-        )
-      ],
+              FlatButton(
+                onPressed: () {
+                  setState(() {
+                    colorCount = 0;
+                  });
+                  baktrackingStart(widget.matrix, items, widget.vertexCount);
+                },
+                child: Text(
+                  "Backtracking",
+                  style: TextStyle(color: Colors.white),
+                ),
+                color: Color(0xff45D3C2),
+              ),
+              FlatButton(
+                onPressed: () {
+                  setState(() {
+                    colorCount = 0;
+                  });
+                  greedyMain(widget.vertexCount, items);
+                },
+                child: Text("Greedy", style: TextStyle(color: Colors.white)),
+                color: Color(0xffFC4A71),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 
