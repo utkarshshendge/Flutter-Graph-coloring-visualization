@@ -1,6 +1,12 @@
-# daa
+# Graph Coloring Problem Visualization
 
-A new Flutter project.
+
+### TO-DO
+- [ ] Add responsivenes   
+- [ ] Add bloc pattern  
+- [ ] Clean code   
+
+
 
 ## Getting Started
 
