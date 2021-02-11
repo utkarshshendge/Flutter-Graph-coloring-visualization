@@ -6,6 +6,12 @@
 - [ ] Add bloc pattern  
 - [ ] Clean code   
 
+# How to use?
+Here are few things you need to know:
+1. [What is graph coloring Algorithm?](https://www.geeksforgeeks.org/graph-coloring-applications/)
+1. [What is adjacency matrix?](https://www.geeksforgeeks.org/graph-and-its-representations/)
+
+## Enter the number of vertices you wish to have in your graph.
 
 
 ## Getting Started
