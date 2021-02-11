@@ -11,8 +11,8 @@ Here are few things you need to know:
 1. [What is graph coloring Algorithm?](https://www.geeksforgeeks.org/graph-coloring-applications/)
 1. [What is adjacency matrix?](https://www.geeksforgeeks.org/graph-and-its-representations/)
 
-## Enter the number of vertices you wish to have in your graph.
-
+## 1 Enter the number of vertices you wish to have in your graph.
+![alt text](https://user-images.githubusercontent.com/57677520/107680775-4d3a7a80-6cc4-11eb-8eeb-3bdae394dd44.PNG)
 
 ## Getting Started
 
