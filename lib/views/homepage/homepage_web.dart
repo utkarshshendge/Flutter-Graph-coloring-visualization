@@ -140,7 +140,7 @@ class _HomePageWebState extends State<HomePageWeb> {
     List<int> resultIndex = new List<int>(N);
 
     // Assign the first color to first vertex
-    result[0] = Colors.red;
+    result[0] = Colors.purpleAccent;
     resultIndex[0] = 0;
     //await Future.delayed(Duration(milliseconds: 500));
 
@@ -224,87 +224,97 @@ class _HomePageWebState extends State<HomePageWeb> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Column(
-        children: <Widget>[
-          Container(
-            color: Color(0xff1A2744),
-            height: 500,
-            child: Stack(
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Color(0xff1A2744),
+              height: 500,
+              child: Stack(
+                children: <Widget>[
+                  CustomPaint(
+                    size: Size(double.infinity, double.infinity),
+                    painter: CurvedPainter(
+                        offsets: items.map((item) => item.offset).toList(),
+                        matrix: widget.matrix,
+                        vertexCount: widget.vertexCount),
+                  ),
+                  ..._buildItems(),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            RichText(
+                text: TextSpan(
+                    text: "$colorCount",
+                    style: TextStyle(
+                        fontFamily: "CM", fontSize: 60, color: Colors.white),
+                    children: <TextSpan>[
+                  TextSpan(
+                    text: " times vertices colored.",
+                    style: TextStyle(
+                        fontFamily: "CM", fontSize: 40, color: Colors.white54),
+                  ),
+                ])),
+            SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                CustomPaint(
-                  size: Size(double.infinity, double.infinity),
-                  painter: CurvedPainter(
-                      offsets: items.map((item) => item.offset).toList(),
-                      matrix: widget.matrix,
-                      vertexCount: widget.vertexCount),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      colorCount = 0;
+                    });
+                    rescursiveUtility(widget.matrix, items, widget.vertexCount);
+                  },
+                  child:
+                      Text("Recursive", style: TextStyle(color: Colors.white)),
+                  color: Color(0xff684AFF),
                 ),
-                ..._buildItems(),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      colorCount = 0;
+                    });
+                    baktrackingStart(widget.matrix, items, widget.vertexCount);
+                  },
+                  child: Text(
+                    "Backtracking",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Color(0xff45D3C2),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      colorCount = 0;
+                    });
+                    greedyMain(widget.vertexCount, items);
+                  },
+                  child: Text("Greedy", style: TextStyle(color: Colors.white)),
+                  color: Color(0xffFC4A71),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                      colorCount = 0;
+                      items.forEach((element) {
+                        element.color = Colors.white;
+                      });
+                    });
+                  },
+                  child: Text("Reset Colors",
+                      style: TextStyle(color: Colors.black)),
+                  color: Colors.white,
+                ),
               ],
             ),
-          ),
-          Text("$colorCount",
-              style: TextStyle(color: Colors.white, fontSize: 40)),
-          Row(
-            children: [
-              Expanded(
-                child: RichText(
-                    text: TextSpan(
-                        text: "Graph coloring algorithm\nVisualization.",
-                        style: TextStyle(
-                            fontFamily: "CM",
-                            fontSize: 60,
-                            color: Colors.white),
-                        children: <TextSpan>[
-                      TextSpan(
-                        text: "\nCoded in Dart.",
-                        style: TextStyle(
-                            fontFamily: "CM",
-                            fontSize: 40,
-                            color: Colors.white54),
-                      ),
-                    ])),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FlatButton(
-                onPressed: () {
-                  setState(() {
-                    colorCount = 0;
-                  });
-                  rescursiveUtility(widget.matrix, items, widget.vertexCount);
-                },
-                child: Text("Recursive", style: TextStyle(color: Colors.white)),
-                color: Color(0xff684AFF),
-              ),
-              FlatButton(
-                onPressed: () {
-                  setState(() {
-                    colorCount = 0;
-                  });
-                  baktrackingStart(widget.matrix, items, widget.vertexCount);
-                },
-                child: Text(
-                  "Backtracking",
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Color(0xff45D3C2),
-              ),
-              FlatButton(
-                onPressed: () {
-                  setState(() {
-                    colorCount = 0;
-                  });
-                  greedyMain(widget.vertexCount, items);
-                },
-                child: Text("Greedy", style: TextStyle(color: Colors.white)),
-                color: Color(0xffFC4A71),
-              ),
-            ],
-          )
-        ],
+          ],
+        ),
       ),
     );
   }
