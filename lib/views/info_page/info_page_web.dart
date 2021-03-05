@@ -1,8 +1,5 @@
-import 'dart:html';
-
 import 'package:daa/views/input_page/graph_input_matrix_web.dart';
 import 'package:flutter/material.dart';
-import 'package:daa/views/input_page/graph_input_matrix.dart';
 import 'package:daa/theme/customtheme.dart';
 import 'package:daa/theme/customtheme.dart';
 
@@ -57,12 +54,13 @@ class _InfoPageWebState extends State<InfoPageWeb> {
                       height: 50,
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                            "To proceed enter number of vertices (preferably single digit number >0).\nApp uses adjacency matrix representation to solve vertex coloring problem uing Recursive Backtracking and Greedy approach.",
-                            style: TextStyle(
-                                fontSize: 15, color: CustomTheme.customCyan)),
+                        Expanded(
+                          child: Text(
+                              "To proceed enter number of vertices (preferably single digit number >0).\nApp uses adjacency matrix representation to solve vertex coloring problem uing Recursive Backtracking and Greedy approach.",
+                              style: TextStyle(
+                                  fontSize: 15, color: CustomTheme.customCyan)),
+                        ),
                       ],
                     ),
                     SizedBox(

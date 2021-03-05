@@ -74,17 +74,17 @@ class _GraphInputWebState extends State<GraphInputWeb> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
-            child: Expanded(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RichText(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: RichText(
                           text: TextSpan(
                               text: "Fill the adjacency Matrix.",
                               style: TextStyle(
@@ -101,134 +101,132 @@ class _GraphInputWebState extends State<GraphInputWeb> {
                                   color: Colors.white70),
                             ),
                           ])),
-                      Column(
-                        children: [
-                          FlatButton(
-                              color: CustomTheme.customCyan,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Homepage(
-                                            vertexCount: 5,
-                                            matrix: exampleMatrixOne,
-                                            mcolor: 3,
-                                          )),
-                                );
-                              },
-                              child: Text('Sample Matrix 1')),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          FlatButton(
-                              color: CustomTheme.customCyan,
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePageWeb(
-                                            vertexCount: 5,
-                                            matrix: exampleMatrixTwo,
-                                            mcolor: 3,
-                                          )),
-                                );
-                              },
-                              child: Text('Sample matrix 2')),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Align(
-                        child: Container(
-                          height: 600,
-                          width: 600,
-                          child: GridView.builder(
-                              itemCount:
-                                  widget.vertexCount * widget.vertexCount,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: widget.vertexCount),
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    tapped(index);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        border:
-                                            Border.all(color: Colors.white)),
-                                    child: Center(
-                                      child: FittedBox(
-                                        fit: BoxFit.fitWidth,
-                                        child: Text(
-                                          "${displayExOh[index]}",
-                                          style: TextStyle(
-                                              color: Colors.redAccent,
-                                              fontSize: 40),
-                                        ),
+                    ),
+                    Column(
+                      children: [
+                        FlatButton(
+                            color: CustomTheme.customCyan,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePageWeb(
+                                          vertexCount: 5,
+                                          matrix: exampleMatrixOne,
+                                          mcolor: 3,
+                                        )),
+                              );
+                            },
+                            child: Text('Sample Matrix 1')),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        FlatButton(
+                            color: CustomTheme.customCyan,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePageWeb(
+                                          vertexCount: 5,
+                                          matrix: exampleMatrixTwo,
+                                          mcolor: 3,
+                                        )),
+                              );
+                            },
+                            child: Text('Sample matrix 2')),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Align(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        width: MediaQuery.of(context).size.height * 0.5,
+                        child: GridView.builder(
+                            itemCount: widget.vertexCount * widget.vertexCount,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: widget.vertexCount),
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  tapped(index);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.white)),
+                                  child: Center(
+                                    child: FittedBox(
+                                      fit: BoxFit.fitWidth,
+                                      child: Text(
+                                        "${displayExOh[index]}",
+                                        style: TextStyle(
+                                            color: Colors.redAccent,
+                                            fontSize: 40),
                                       ),
                                     ),
                                   ),
-                                );
-                              }),
+                                ),
+                              );
+                            }),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          width: 200,
+                          child: TextField(
+                            autofocus: true,
+                            onChanged: (value) {
+                              text = value;
+                            },
+                            cursorColor: Colors.redAccent,
+                            keyboardType: TextInputType.number,
+                            style: TextStyle(color: Colors.white),
+                            controller: _textFieldController,
+                            decoration: InputDecoration(
+                                labelText: "Enter number of colors",
+                                labelStyle: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: "CM"),
+                                hintStyle: TextStyle(
+                                    color: Colors.white, fontSize: 10)),
+                          ),
                         ),
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            width: 200,
-                            child: TextField(
-                              autofocus: true,
-                              onChanged: (value) {
-                                text = value;
-                              },
-                              cursorColor: Colors.redAccent,
-                              keyboardType: TextInputType.number,
-                              style: TextStyle(color: Colors.white),
-                              controller: _textFieldController,
-                              decoration: InputDecoration(
-                                  labelText: "Enter number of colors",
-                                  labelStyle: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontFamily: "CM"),
-                                  hintStyle: TextStyle(
-                                      color: Colors.white, fontSize: 10)),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          FlatButton(
-                              color: Color(0xffFC4A71),
-                              onPressed: () {
-                                convertToMatrix();
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePageWeb(
-                                            vertexCount: widget.vertexCount,
-                                            matrix: matrix,
-                                            mcolor: int.parse(text),
-                                          )),
-                                );
-                              },
-                              child: Text('Proceed'))
-                        ],
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                ],
-              ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        FlatButton(
+                            color: Color(0xffFC4A71),
+                            onPressed: () {
+                              convertToMatrix();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePageWeb(
+                                          vertexCount: widget.vertexCount,
+                                          matrix: matrix,
+                                          mcolor: int.parse(text),
+                                        )),
+                              );
+                            },
+                            child: Text('Proceed'))
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+              ],
             ),
           ),
         ),
