@@ -27,7 +27,7 @@ Here are few things you need to know:
 ## 3 Fill the matrix by tapping on it(indexing starts from 0).
 ![alt text](https://user-images.githubusercontent.com/57677520/107778884-9e04ae80-6d6a-11eb-871f-99e28892a595.png)
 
-## 4 You got it right!!.
+## 4 You got it right!!.Adjust the nodes(vertices) and see coloring.
 ![alt text](https://user-images.githubusercontent.com/57677520/107778830-8f1dfc00-6d6a-11eb-8b67-660af5ec1a34.png)
 
 ## Getting Started
