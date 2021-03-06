@@ -1,7 +1,5 @@
 import 'package:daa/views/input_page/graph_input_matrix_web.dart';
 import 'package:flutter/material.dart';
-import 'package:daa/theme/customtheme.dart';
-import 'package:daa/theme/customtheme.dart';
 
 class InfoPageWeb extends StatefulWidget {
   @override
@@ -59,7 +57,8 @@ class _InfoPageWebState extends State<InfoPageWeb> {
                           child: Text(
                               "To proceed enter number of vertices (preferably single digit number >0).\nApp uses adjacency matrix representation to solve vertex coloring problem uing Recursive Backtracking and Greedy approach.",
                               style: TextStyle(
-                                  fontSize: 15, color: CustomTheme.customCyan)),
+                                  fontSize: 15,
+                                  color: Colors.cyanAccent.withOpacity(0.7))),
                         ),
                       ],
                     ),
@@ -96,7 +95,7 @@ class _InfoPageWebState extends State<InfoPageWeb> {
                             color: Color(0xffFC4A71),
                             onPressed: () {
                               if (text != null)
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => GraphInputWeb(
