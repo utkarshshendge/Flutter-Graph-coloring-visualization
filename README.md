@@ -7,9 +7,8 @@
 
 
 ### TO-DO
-- [ ] Add responsivenes   
-- [ ] Add bloc pattern  
-- [ ] Clean code   
+- [ ]  Add bloc pattern  
+- [ ]  Clean code   
 
 # How to use?
 Here are few things you need to know:
