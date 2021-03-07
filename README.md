@@ -1,5 +1,5 @@
 # Graph Coloring Problem Visualization
-Try  [web-app](https://utkarshshendge.github.io/#/)
+Try  [web-app](https://utkarshshendge.github.io/#/) (read readme first).
 
 
 ![alt text](https://user-images.githubusercontent.com/57677520/107778845-934a1980-6d6a-11eb-9643-77ad52520bf7.png)
