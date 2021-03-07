@@ -1,14 +1,11 @@
 # Graph Coloring Problem Visualization
+Try  [web-app](https://utkarshshendge.github.io/#/)
+
 
 ![alt text](https://user-images.githubusercontent.com/57677520/107778845-934a1980-6d6a-11eb-9643-77ad52520bf7.png)
 ![alt text](https://user-images.githubusercontent.com/57677520/107778830-8f1dfc00-6d6a-11eb-8b67-660af5ec1a34.png)
 
-
-
-
-### TO-DO
-- [ ]  Add bloc pattern  
-- [ ]  Clean code   
+ 
 
 # How to use?
 Here are few things you need to know:
